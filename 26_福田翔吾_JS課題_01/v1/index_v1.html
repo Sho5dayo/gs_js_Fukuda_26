@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <title>じゃんけん</title>
+    <script src="js/main.js"></script>
+</head>
+
+<body>
+
+    <header>fukuda3301</header>
+    <button id="Poker">神経衰弱</button>
+
+    <div class = "Q">
+        <h2>[問題]</h2>
+        <p>こんにちは、我々は極めて聡明な人々を探しています。
+            <br>そのような人々を見つけるために、我々はあるテストを考案しました。
+            <br>このイメージの中にはとあるメッセージが隠されています。
+            <br>それを見つけてください。
+            <br>そのメッセージが我々を見つけるための道筋への手がかかりとなるでしょう。
+            <br>我々はそのすべての謎を解くことが出来るような少数の人々と会うことを楽しみにしています。
+            <br>幸運を。
+        </p>
+        <p>3301</p>
+        
+    </div>
+
+    <div id="image">
+        <button id="check"><img src="image/4902102137065.jpg" alt="4902102137065"></button>
+        <div id="hint">画像の要素を解読し、Amazonで検索せよ</div>
+    </div>
+
+    <div id="answer">
+        <h2>[選択肢]</h2>
+        <div class="drink">
+           
+            <input type="button" id="submit1"  value="1"><img src ="image/coke.jpg">
+            <input type="button" id="submit2"  value="2"><img src ="image/cider.jpg">
+            <input type="button" id="submit3"  value="3"><img src ="image/fanta.jpg">
+
+            </div>
+    </div>
+
+
+    <script>
+        $('#submit1').on('click', function() {
+            if(confirm('あなたの回答は1でよろしいですか？')){
+            window.location.href = "correct.html";
+        }});
+
+        $('#submit2').on('click', function() {
+            if(confirm('あなたの回答は2でよろしいですか？')){
+            window.location.href = "incorrect.html";
+        }});
+
+        $('#submit3').on('click', function() {
+            if(confirm('あなたの回答は3でよろしいですか？')){
+            window.location.href = "incorrect.html";
+        }});
+
+
+
+        $('#check').mousedown(function(){
+           $('#hint').fadeIn(3000) 
+           $('#hint').hide()
+        });
+            
+               
+        $('#Poker').on('click', function() {
+            if(confirm('神経衰弱へ移動しますか？')){
+            window.location.href = "Poker.html";
+        }});
+
+    </script>
+
+
+    
+    
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</body>
+
+</html>

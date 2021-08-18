@@ -1,0 +1,53 @@
+html{
+    width: 100%;
+}
+
+header{
+    font-size: 30px;
+    text-align: center;
+    background-color: black;
+    color: white;
+    width: 100%;
+}
+
+body{
+    background-color:rgb(202, 202, 202);
+    color: black;
+    font-family: 'STIX Two Text', serif;
+}
+
+#image{
+    text-align: center;
+    margin-top: 300px;
+}
+
+#image img{
+    width: 500px;
+}
+
+footer{
+    background-color: gray;
+    font-size: large;
+    width: 100%;
+    text-align: center;
+}
+
+#answer{
+    margin-top: 60px;
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+.drink img{
+    width: 100px;
+    padding: 0px;
+    margin: 0px;
+}
+
+input:hover{
+    cursor: pointer;
+}
+
+#hint{
+    display: none;
+}

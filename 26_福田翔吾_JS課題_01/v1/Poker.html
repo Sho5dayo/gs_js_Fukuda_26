@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Porker Studium</title>
+    <!-- <script src="js/main.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="bunshou">図柄合わせゲーム
+        
+    </div>
+    <div id="box">
+        <ul id = aaa>
+            <li id="box1"></li>
+            <li id="box2"></li>
+            <li id="box3"></li>
+            <li id="box4"></li>
+            <li id="box5"></li>
+        </ul>
+    </div>
+    <!-- <button id="change">Change</button> -->
+
+    <script>
+
+        // 箱に画像をランダムで表示する処理
+        
+       
+            
+        // 画像データ取得
+        const cardlist = [
+            "image/trump/c-A.jpg","image/trump/c-2.jpg", "image/trump/c-3.jpg", "image/trump/c-4.jpg", "image/trump/c-5.jpg", "image/trump/c-6.jpg", "image/trump/c-7.jpg", "image/trump/c-8.jpg", "image/trump/c-9.jpg", "image/trump/c-10.jpg", "image/trump/c-j.jpg", "image/trump/c-q.jpg", "image/trump/c-k.jpg",
+            "image/trump/d-a.jpg", "image/trump/d-2.jpg","image/trump/d-3.jpg", "image/trump/d-4.jpg", "image/trump/d-5.jpg", "image/trump/d-6.jpg", "image/trump/d-7.jpg", "image/trump/d-8.jpg", "image/trump/d-9.jpg", "image/trump/d-10.jpg", "image/trump/d-j.jpg", "image/trump/d-q.jpg", "image/trump/d-k.jpg",
+            "image/trump/h-a.jpg", "image/trump/h-2.jpg","image/trump/h-3.jpg", "image/trump/h-4.jpg", "image/trump/h-5.jpg", "image/trump/h-6.jpg", "image/trump/h-7.jpg", "image/trump/h-8.jpg", "image/trump/h-9.jpg", "image/trump/h-10.jpg", "image/trump/h-j.jpg", "image/trump/h-q.jpg", "image/trump/h-k.jpg", 
+            "image/trump/s-a.jpg", "image/trump/s-2.jpg", "image/trump/s-3.jpg", "image/trump/s-4.jpg", "image/trump/s-5.jpg", "image/trump/s-6.jpg", "image/trump/s-7.jpg", "image/trump/s-8.jpg", "image/trump/s-9.jpg", "image/trump/s-10.jpg", "image/trump/s-j.jpg", "image/trump/s-q.jpg", "image/trump/s-k.jpg", 
+        ];
+       
+
+        // 乱数定義
+        const i = Math.floor(Math.random(cardlist)*52);
+        console.log(i)
+        const i2 = Math.floor(Math.random(cardlist)*52);
+        const i3 = Math.floor(Math.random(cardlist)*52);
+        const i4 = Math.floor(Math.random(cardlist)*52);
+        const i5 = Math.floor(Math.random(cardlist)*52);
+
+        // テスト用
+        // const i = Math.floor(Math.random(cardlist)*13);
+        // console.log(i)
+        // const i2 = Math.floor(Math.random(cardlist)*13);
+        // const i3 = Math.floor(Math.random(cardlist)*13);
+        // const i4 = Math.floor(Math.random(cardlist)*13);
+        // const i5 = Math.floor(Math.random(cardlist)*13);
+        
+        //画像に乱数当てはめる処理
+        const path1 = "<img src =" + cardlist[i] + " id =" + cardlist[i] + ">";
+        const path2 = "<img src =" + cardlist[i2] + " id =" + cardlist[i2] + ">";
+        const path3 = "<img src =" + cardlist[i3] + " id =" + cardlist[i3] + ">";
+        const path4 = "<img src =" + cardlist[i4] + " id =" + cardlist[i4] + ">";
+        const path5 = "<img src =" + cardlist[i5] + " id =" + cardlist[i5] + ">";
+
+        // カード5枚を表示
+        $("#box1").html(path1);
+        console.log(path1);
+        $("#box2").html(path2);
+        $("#box3").html(path3);
+        $("#box4").html(path4);
+        $("#box5").html(path5);
+
+     
+        // まとめて書けないか？→書けない
+        // $(["#box2", "#box2", "#box3", "#box4", "#box5"]).html([path1, path2, path3, path4, path5]);
+
+
+        // 手札交換(ここは諦める)
+        // $("#box").on("click", "img", function () {
+        // $(this).toggleClass("clicked");
+        // });
+
+        // $(function(){
+        // if("#change").on("click", "button", function(){
+        // $(".clicked").remove();
+        // });
+
+        // 役の判定
+        // $(function(){
+            // const cardLIST  = [
+            // "image/trump/c-A.jpg","image/trump/c-2.jpg", "image/trump/c-3.jpg", "image/trump/c-4.jpg", "image/trump/c-5.jpg", "image/trump/c-6.jpg", "image/trump/c-7.jpg", "image/trump/c-8.jpg", "image/trump/c-9.jpg", "image/trump/c-10.jpg", "image/trump/c-j.jpg", "image/trump/c-q.jpg", "image/trump/c-k.jpg",
+            // "image/trump/d-a.jpg", "image/trump/d-2.jpg","image/trump/d-3.jpg", "image/trump/d-4.jpg", "image/trump/d-5.jpg", "image/trump/d-6.jpg", "image/trump/d-7.jpg", "image/trump/d-8.jpg", "image/trump/d-9.jpg", "image/trump/d-10.jpg", "image/trump/d-j.jpg", "image/trump/d-q.jpg", "image/trump/d-k.jpg",
+            // "image/trump/h-a.jpg", "image/trump/h-2.jpg","image/trump/h-3.jpg", "image/trump/h-4.jpg", "image/trump/h-5.jpg", "image/trump/h-6.jpg", "image/trump/h-7.jpg", "image/trump/h-8.jpg", "image/trump/h-9.jpg", "image/trump/h-10.jpg", "image/trump/h-j.jpg", "image/trump/h-q.jpg", "image/trump/h-k.jpg", 
+            // "image/trump/s-a.jpg", "image/trump/s-2.jpg", "image/trump/s-3.jpg", "image/trump/s-4.jpg", "image/trump/s-5.jpg", "image/trump/s-6.jpg", "image/trump/s-7.jpg", "image/trump/s-8.jpg", "image/trump/s-9.jpg", "image/trump/s-10.jpg", "image/trump/s-j.jpg", "image/trump/s-q.jpg", "image/trump/s-k.jpg", 
+            // ];
+
+            // 図柄の定義
+            // const club = [
+            // "image/trump/c-A.jpg","image/trump/c-2.jpg", "image/trump/c-3.jpg", "image/trump/c-4.jpg", "image/trump/c-5.jpg", "image/trump/c-6.jpg", "image/trump/c-7.jpg", "image/trump/c-8.jpg", "image/trump/c-9.jpg", "image/trump/c-10.jpg", "image/trump/c-j.jpg", "image/trump/c-q.jpg", "image/trump/c-k.jpg"
+            // ];
+            // const diamond = [
+            // "image/trump/d-a.jpg", "image/trump/d-2.jpg","image/trump/d-3.jpg", "image/trump/d-4.jpg", "image/trump/d-5.jpg", "image/trump/d-6.jpg", "image/trump/d-7.jpg", "image/trump/d-8.jpg", "image/trump/d-9.jpg", "image/trump/d-10.jpg", "image/trump/d-j.jpg", "image/trump/d-q.jpg", "image/trump/d-k.jpg"
+            // ];
+            // const heart = [
+            // "image/trump/h-a.jpg", "image/trump/h-2.jpg","image/trump/h-3.jpg", "image/trump/h-4.jpg", "image/trump/h-5.jpg", "image/trump/h-6.jpg", "image/trump/h-7.jpg", "image/trump/h-8.jpg", "image/trump/h-9.jpg", "image/trump/h-10.jpg", "image/trump/h-j.jpg", "image/trump/h-q.jpg", "image/trump/h-k.jpg",
+            // ];
+            // const spade = [
+            // "image/trump/s-a.jpg", "image/trump/s-2.jpg", "image/trump/s-3.jpg", "image/trump/s-4.jpg", "image/trump/s-5.jpg", "image/trump/s-6.jpg", "image/trump/s-7.jpg", "image/trump/s-8.jpg", "image/trump/s-9.jpg", "image/trump/s-10.jpg", "image/trump/s-j.jpg", "image/trump/s-q.jpg", "image/trump/s-k.jpg"
+            // ];
+
+            // 数字の定義
+            // $(function(){
+            //     const Ace = $('input[name*=-A]')
+            //     if("#box1" === Ace){
+            //         alert("OK");
+            //     }
+            //     });
+                
+                // 図柄が全部一緒の場合(フラッシュと表示させる)
+                // const box = [path1,path2, path3, path4, path5];
+
+            // const result1 = document.getElementById(cardlist[i]).id ;
+            // console.log(result1);
+            // const result2 = document.getElementById(cardlist[i2]).id ;
+            // console.log(result2);
+            // const result3 = document.getElementById(cardlist[i3]).id ;
+            // console.log(result3);
+            // const result4 = document.getElementById(cardlist[i4]).id ;
+            // console.log(result4);
+            // const result5 = document.getElementById(cardlist[i5]).id ;
+            // console.log(result5);
+
+            // const result_all =[result1, result2, result3, result4, result5];
+            // console.log(result_all);
+            
+            // if(result_all.match(/c/);
+            // alert("Flush!");
+            // });
+        // }); 
+        // if(i <= 12){
+
+            // 1枚目の処理
+            const club1 = i <= 12;
+            console.log(club1);
+            const diamond1 = i >= 13 && i<=25;
+            console.log(diamond1);
+            const heart1 = i >= 26 && i<=38;
+            console.log(heart1);
+            const spade1 = i >= 39 && i <=51;
+            console.log(spade1);
+
+            // 2枚目の処理
+            const club2 = i2 <= 12;
+            console.log(club2);
+            const diamond2 = i2 >= 13 && i2<=25;
+            console.log(diamond2);
+            const heart2 = i2 >= 26 && i2<=38;
+            console.log(heart2);
+            const spade2 = i2 >= 39 && i2 <=51;
+            console.log(spade2);
+
+            // 3枚目の処理
+            const club3 = i3 <= 12;
+            console.log(club3);
+            const diamond3 = i3 >= 13 && i3<=25;
+            console.log(diamond3);
+            const heart3 = i3 >= 26 && i3<=38;
+            console.log(heart3);
+            const spade3 = i3 >= 39 && i3<=51;
+            console.log(spade3);
+
+            // 4枚目の処理
+            const club4 = i4 <= 12;
+            console.log(club4);
+            const diamond4 = i4 >= 13 && i4<=25;
+            console.log(diamond4);
+            const heart4 = i4 >= 26 && i4<=38;
+            console.log(heart4);
+            const spade4 = i4 >= 39 && i4<=51;
+            console.log(spade4);
+
+            // 5枚目の処理
+            const club5 = i5 <= 12;
+            console.log(club5);
+            const diamond5 = i5 >= 13 && i5<=25;
+            console.log(diamond5);
+            const heart5 = i5 >= 26 && i5<=38;
+            console.log(heart5);
+            const spade5 = i5 >= 39 && i5<=51;
+            console.log(spade5);
+
+
+            // (true === [diamond1,diamond2,diamond3,diamond4,diamond5])この記述の仕方は出来ないので以下のように書いてみた（できた）
+            
+            // フラッシュの判定
+            if
+            (true === club1 && true === club2 && true === club3 && true === club4 && true === club5){
+                alert('Flush');
+            }
+            else　if
+                (true === diamond1 && true === diamond2 && true === diamond3 && true === diamond4 && true === diamond5){
+                // (true === [diamond1,diamond2,diamond3,diamond4,diamond5])
+                alert('Flush');
+            }
+            else if
+            (true === heart1 && true === heart2 && true === heart3 && true === heart4 && true === heart5){
+                // (true === [heart1,heart2,heart3,heart4,heart5])
+                alert('Flush');
+            }
+            else if
+                (true === spade1 && true === spade2 && true === spade3 && true === spade4 && true === spade5){
+                // (true === [spade1,spade2,spade3,spade4,spade5])
+                alert('Flush');
+            }
+
+            // 1枚目の処理(数字)絶対もっといいやり方ある。
+            const pattern1 = i === 0;
+            const pattern2 = i === 1;
+            const pattern3 = i === 2;
+            const pattern4 = i === 3;
+            const pattern5 = i === 4;
+            const pattern6 = i === 5;
+            const pattern7 = i === 6;
+            const pattern8 = i === 7;
+            const pattern9 = i === 8;
+            const pattern10 = i === 9;
+            const pattern11 = i === 10;
+            const pattern12 = i === 11;
+            const pattern13 = i === 12;
+            const pattern14 = i === 13;
+            const pattern15 = i === 14;
+            const pattern16 = i === 15;
+            const pattern17 = i === 16;
+            const pattern18 = i === 17;
+            const pattern19 = i === 18;
+            const pattern20 = i === 19;
+            const pattern21 = i === 20;
+            const pattern22 = i === 21;
+            const pattern23 = i === 22;
+            const pattern24 = i === 23;
+            const pattern25 = i === 24;
+            const pattern26 = i === 25;
+            const pattern27 = i === 26;
+            const pattern28 = i === 27;
+            const pattern29 = i === 28;
+            const pattern30 = i === 29;
+            const pattern31 = i === 30;
+            const pattern32 = i === 31;
+            const pattern33 = i === 32;
+            const pattern34 = i === 33;
+            const pattern35 = i === 34;
+            const pattern36 = i === 35;
+            const pattern37 = i === 36;
+            const pattern38 = i === 37;
+            const pattern39 = i === 38;
+            const pattern40 = i === 39;
+            const pattern41 = i === 40;
+            const pattern42 = i === 41;
+            const pattern43 = i === 42;
+            const pattern44 = i === 43;
+            const pattern45 = i === 44;
+            const pattern46 = i === 45;
+            const pattern47 = i === 46;
+            const pattern48 = i === 47;
+            const pattern49 = i === 48;
+            const pattern50 = i === 49;
+            const pattern51 = i === 50;
+            const pattern52 = i === 51;
+
+
+            // 2枚目の処理(数字)
+            const pattern1_2 = i2 === 0;
+            const pattern2_2 = i2 === 1;
+            const pattern3_2 = i2 === 2;
+            const pattern4_2 = i2 === 3;
+            const pattern5_2 = i2 === 4;
+            const pattern6_2 = i2 === 5;
+            const pattern7_2 = i2 === 6;
+            const pattern8_2 = i2 === 7;
+            const pattern9_2 = i2 === 8;
+            const pattern10_2 = i2 === 9;
+            const pattern11_2 = i2 === 10;
+            const pattern12_2 = i2 === 11;
+            const pattern13_2 = i2 === 12;
+            const pattern14_2 = i2 === 13;
+            const pattern15_2 = i2 === 14;
+            const pattern16_2 = i2 === 15;
+            const pattern17_2 = i2 === 16;
+            const pattern18_2 = i2 === 17;
+            const pattern19_2 = i2 === 18;
+            const pattern20_2 = i2 === 19;
+            const pattern21_2 = i2 === 20;
+            const pattern22_2 = i2 === 21;
+            const pattern23_2 = i2 === 22;
+            const pattern24_2 = i2 === 23;
+            const pattern25_2 = i2 === 24;
+            const pattern26_2 = i2 === 25;
+            const pattern27_2 = i2 === 26;
+            const pattern28_2 = i2 === 27;
+            const pattern29_2 = i2 === 28;
+            const pattern30_2 = i2 === 29;
+            const pattern31_2 = i2 === 30;
+            const pattern32_2 = i2 === 31;
+            const pattern33_2 = i2 === 32;
+            const pattern34_2 = i2 === 33;
+            const pattern35_2 = i2 === 34;
+            const pattern36_2 = i2 === 35;
+            const pattern37_2 = i2 === 36;
+            const pattern38_2 = i2 === 37;
+            const pattern39_2 = i2 === 38;
+            const pattern40_2 = i2 === 39;
+            const pattern41_2 = i2 === 40;
+            const pattern42_2 = i2 === 41;
+            const pattern43_2 = i2 === 42;
+            const pattern44_2 = i2 === 43;
+            const pattern45_2 = i2 === 44;
+            const pattern46_2 = i2 === 45;
+            const pattern47_2 = i2 === 46;
+            const pattern48_2 = i2 === 47;
+            const pattern49_2 = i2 === 48;
+            const pattern50_2 = i2 === 49;
+            const pattern51_2 = i2 === 50;
+            const pattern52_2 = i2 === 51;
+
+            // 3枚目の処理(数字)
+            const pattern1_3 = i3 === 0;
+            const pattern2_3 = i3 === 1;
+            const pattern3_3 = i3 === 2;
+            const pattern4_3 = i3 === 3;
+            const pattern5_3 = i3 === 4;
+            const pattern6_3 = i3 === 5;
+            const pattern7_3 = i3 === 6;
+            const pattern8_3 = i3 === 7;
+            const pattern9_3 = i3 === 8;
+            const pattern10_3 = i3 === 9;
+            const pattern11_3 = i3 === 10;
+            const pattern12_3 = i3 === 11;
+            const pattern13_3 = i3 === 12;
+            const pattern14_3 = i3 === 13;
+            const pattern15_3 = i3 === 14;
+            const pattern16_3 = i3 === 15;
+            const pattern17_3 = i3 === 16;
+            const pattern18_3 = i3 === 17;
+            const pattern19_3 = i3 === 18;
+            const pattern20_3 = i3 === 19;
+            const pattern21_3 = i3 === 20;
+            const pattern22_3 = i3 === 21;
+            const pattern23_3 = i3 === 22;
+            const pattern24_3 = i3 === 23;
+            const pattern25_3 = i3 === 24;
+            const pattern26_3 = i3 === 25;
+            const pattern27_3 = i3 === 26;
+            const pattern28_3 = i3 === 27;
+            const pattern29_3 = i3 === 28;
+            const pattern30_3 = i3 === 29;
+            const pattern31_3 = i3 === 30;
+            const pattern32_3 = i3 === 31;
+            const pattern33_3 = i3 === 32;
+            const pattern34_3 = i3 === 33;
+            const pattern35_3 = i3 === 34;
+            const pattern36_3 = i3 === 35;
+            const pattern37_3 = i3 === 36;
+            const pattern38_3 = i3 === 37;
+            const pattern39_3 = i3 === 38;
+            const pattern40_3 = i3 === 39;
+            const pattern41_3 = i3 === 40;
+            const pattern42_3 = i3 === 41;
+            const pattern43_3 = i3 === 42;
+            const pattern44_3 = i3 === 43;
+            const pattern45_3 = i3 === 44;
+            const pattern46_3 = i3 === 45;
+            const pattern47_3 = i3 === 46;
+            const pattern48_3 = i3 === 47;
+            const pattern49_3 = i3 === 48;
+            const pattern50_3 = i3 === 49;
+            const pattern51_3 = i3 === 50;
+            const pattern52_3 = i3 === 51;
+
+            // 4枚目の処理(数字)PC破壊しようかな。
+            const pattern1_4 = i4 === 0;
+            const pattern2_4 = i4 === 1;
+            const pattern3_4 = i4 === 2;
+            const pattern4_4 = i4 === 3;
+            const pattern5_4 = i4 === 4;
+            const pattern6_4 = i4 === 5;
+            const pattern7_4 = i4 === 6;
+            const pattern8_4 = i4 === 7;
+            const pattern9_4 = i4 === 8;
+            const pattern10_4 = i4 === 9;
+            const pattern11_4 = i4 === 10;
+            const pattern12_4 = i4 === 11;
+            const pattern13_4 = i4 === 12;
+            const pattern14_4 = i4 === 13;
+            const pattern15_4 = i4 === 14;
+            const pattern16_4 = i4 === 15;
+            const pattern17_4 = i4 === 16;
+            const pattern18_4 = i4 === 17;
+            const pattern19_4 = i4 === 18;
+            const pattern20_4 = i4 === 19;
+            const pattern21_4 = i4 === 20;
+            const pattern22_4 = i4 === 21;
+            const pattern23_4 = i4 === 22;
+            const pattern24_4 = i4 === 23;
+            const pattern25_4 = i4 === 24;
+            const pattern26_4 = i4 === 25;
+            const pattern27_4 = i4 === 26;
+            const pattern28_4 = i4 === 27;
+            const pattern29_4 = i4 === 28;
+            const pattern30_4 = i4 === 29;
+            const pattern31_4 = i4 === 30;
+            const pattern32_4 = i4 === 31;
+            const pattern33_4 = i4 === 32;
+            const pattern34_4 = i4 === 33;
+            const pattern35_4 = i4 === 34;
+            const pattern36_4 = i4 === 35;
+            const pattern37_4 = i4 === 36;
+            const pattern38_4 = i4 === 37;
+            const pattern39_4 = i4 === 38;
+            const pattern40_4 = i4 === 39;
+            const pattern41_4 = i4 === 40;
+            const pattern42_4 = i4 === 41;
+            const pattern43_4 = i4 === 42;
+            const pattern44_4 = i4 === 43;
+            const pattern45_4 = i4 === 44;
+            const pattern46_4 = i4 === 45;
+            const pattern47_4 = i4 === 46;
+            const pattern48_4 = i4 === 47;
+            const pattern49_4 = i4 === 48;
+            const pattern50_4 = i4 === 49;
+            const pattern51_4 = i4 === 50;
+            const pattern52_4 = i4 === 51;
+
+            // 5枚目の処理(数字)😇
+            const pattern1_5 = i5 === 0;
+            const pattern2_5 = i5 === 1;
+            const pattern3_5 = i5 === 2;
+            const pattern4_5 = i5 === 3;
+            const pattern5_5 = i5 === 4;
+            const pattern6_5 = i5 === 5;
+            const pattern7_5 = i5 === 6;
+            const pattern8_5 = i5 === 7;
+            const pattern9_5 = i5 === 8;
+            const pattern10_5 = i5 === 9;
+            const pattern11_5 = i5 === 10;
+            const pattern12_5 = i5 === 11;
+            const pattern13_5 = i5 === 12;
+            const pattern14_5 = i5 === 13;
+            const pattern15_5 = i5 === 14;
+            const pattern16_5 = i5 === 15;
+            const pattern17_5 = i5 === 16;
+            const pattern18_5 = i5 === 17;
+            const pattern19_5 = i5 === 18;
+            const pattern20_5 = i5 === 19;
+            const pattern21_5 = i5 === 20;
+            const pattern22_5 = i5 === 21;
+            const pattern23_5 = i5 === 22;
+            const pattern24_5 = i5 === 23;
+            const pattern25_5 = i5 === 24;
+            const pattern26_5 = i5 === 25;
+            const pattern27_5 = i5 === 26;
+            const pattern28_5 = i5 === 27;
+            const pattern29_5 = i5 === 28;
+            const pattern30_5 = i5 === 29;
+            const pattern31_5 = i5 === 30;
+            const pattern32_5 = i5 === 31;
+            const pattern33_5 = i5 === 32;
+            const pattern34_5 = i5 === 33;
+            const pattern35_5 = i5 === 34;
+            const pattern36_5 = i5 === 35;
+            const pattern37_5 = i5 === 36;
+            const pattern38_5 = i5 === 37;
+            const pattern39_5 = i5 === 38;
+            const pattern40_5 = i5 === 39;
+            const pattern41_5 = i5 === 40;
+            const pattern42_5 = i5 === 41;
+            const pattern43_5 = i5 === 42;
+            const pattern44_5 = i5 === 43;
+            const pattern45_5 = i5 === 44;
+            const pattern46_5 = i5 === 45;
+            const pattern47_5 = i5 === 46;
+            const pattern48_5 = i5 === 47;
+            const pattern49_5 = i5 === 48;
+            const pattern50_5 = i5 === 49;
+            const pattern51_5 = i5 === 50;
+            const pattern52_5 = i5 === 51;
+
+            // pattern16のthree
+            if(true === pattern1 && pattern16_2 && pattern16_3){
+                alert('three');}
+            else if(true === pattern16&&pattern16_2&&pattern16_4){
+                alert('three');}
+            else if(true === pattern16&&pattern16_2&&pattern16_5){
+                alert('three');}
+            else if(true === pattern16_2&&pattern16_3&&pattern16_4){
+                alert('three');}
+            else if(true === pattern16_2&&pattern16_5&&pattern16_4){
+                alert('three');}
+            else if(true === pattern16_3&&pattern16_4&&pattern16_5){
+                alert('three');}
+
+            // pattern2のthree
+            if(true === pattern2 && pattern2_2 && pattern2_3){
+                alert('three');}
+            else if(true === pattern2&&pattern2_2&&pattern2_4){
+                alert('three');}
+            else if(true === pattern2&&pattern2_2&&pattern2_5){
+                alert('three');}
+            else if(true === pattern2_2&&pattern2_3&&pattern2_4){
+                alert('three');}
+            else if(true === pattern2_2&&pattern2_5&&pattern2_4){
+                alert('three');}
+            else if(true === pattern2_3&&pattern2_4&&pattern2_5){
+                alert('three');}
+
+            // pattern3のthree
+            if(true === pattern3 && pattern3_2 && pattern3_3){
+                alert('three');}
+            else if(true === pattern3&&pattern3_2&&pattern3_4){
+                alert('three');}
+            else if(true === pattern3&&pattern3_2&&pattern3_5){
+                alert('three');}
+            else if(true === pattern3_2&&pattern3_3&&pattern3_4){
+                alert('three');}
+            else if(true === pattern3_2&&pattern3_5&&pattern3_4){
+                alert('three');}
+            else if(true === pattern3_3&&pattern3_4&&pattern3_5){
+                alert('three');}
+
+                // pattern4のthree
+            if(true === pattern4 && pattern4_2 && pattern4_3){
+                alert('three');}
+            else if(true === pattern4&&pattern4_2&&pattern4_4){
+                alert('three');}
+            else if(true === pattern4&&pattern4_2&&pattern4_5){
+                alert('three');}
+            else if(true === pattern4_2&&pattern4_3&&pattern4_4){
+                alert('three');}
+            else if(true === pattern4_2&&pattern4_5&&pattern4_4){
+                alert('three');}
+            else if(true === pattern4_3&&pattern4_4&&pattern4_5){
+                alert('three');}
+
+                // pattern5のthree
+            if(true === pattern5 && pattern5_2 && pattern5_3){
+                alert('three');}
+            else if(true === pattern5&&pattern5_2&&pattern5_4){
+                alert('three');}
+            else if(true === pattern5&&pattern5_2&&pattern5_5){
+                alert('three');}
+            else if(true === pattern5_2&&pattern5_3&&pattern5_4){
+                alert('three');}
+            else if(true === pattern5_2&&pattern5_5&&pattern5_4){
+                alert('three');}
+            else if(true === pattern5_3&&pattern5_4&&pattern5_5){
+                alert('three');}
+
+               // pattern6のthree
+            if(true === pattern6 && pattern6_2 && pattern6_3){
+                alert('three');}
+            else if(true === pattern6&&pattern6_2&&pattern6_4){
+                alert('three');}
+            else if(true === pattern6&&pattern6_2&&pattern6_5){
+                alert('three');}
+            else if(true === pattern6_2&&pattern6_3&&pattern6_4){
+                alert('three');}
+            else if(true === pattern6_2&&pattern6_5&&pattern6_4){
+                alert('three');}
+            else if(true === pattern6_3&&pattern6_4&&pattern6_5){
+                alert('three');}
+
+                // pattern7のthree
+            if(true === pattern7 && pattern7_2 && pattern7_3){
+                alert('three');}
+            else if(true === pattern7&&pattern7_2&&pattern7_4){
+                alert('three');}
+            else if(true === pattern7&&pattern7_2&&pattern7_5){
+                alert('three');}
+            else if(true === pattern7_2&&pattern7_3&&pattern7_4){
+                alert('three');}
+            else if(true === pattern7_2&&pattern7_5&&pattern7_4){
+                alert('three');}
+            else if(true === pattern7_3&&pattern7_4&&pattern7_5){
+                alert('three');}
+
+                // pattern8のthree
+            if(true === pattern8 && pattern8_2 && pattern8_3){
+                alert('three');}
+            else if(true === pattern8&&pattern8_2&&pattern8_4){
+                alert('three');}
+            else if(true === pattern8&&pattern8_2&&pattern8_5){
+                alert('three');}
+            else if(true === pattern8_2&&pattern8_3&&pattern8_4){
+                alert('three');}
+            else if(true === pattern8_2&&pattern8_5&&pattern8_4){
+                alert('three');}
+            else if(true === pattern8_3&&pattern8_4&&pattern8_5){
+                alert('three');}
+
+                // pattern9のthree
+            if(true === pattern9 && pattern9_2 && pattern9_3){
+                alert('three');}
+            else if(true === pattern9&&pattern9_2&&pattern9_4){
+                alert('three');}
+            else if(true === pattern9&&pattern9_2&&pattern9_5){
+                alert('three');}
+            else if(true === pattern9_2&&pattern9_3&&pattern9_4){
+                alert('three');}
+            else if(true === pattern9_2&&pattern9_5&&pattern9_4){
+                alert('three');}
+            else if(true === pattern9_3&&pattern9_4&&pattern9_5){
+                alert('three');}
+
+                // pattern10のthree
+            if(true === pattern10 && pattern10_2 && pattern10_3){
+                alert('three');}
+            else if(true === pattern10&&pattern10_2&&pattern10_4){
+                alert('three');}
+            else if(true === pattern10&&pattern10_2&&pattern10_5){
+                alert('three');}
+            else if(true === pattern10_2&&pattern10_3&&pattern10_4){
+                alert('three');}
+            else if(true === pattern10_2&&pattern10_5&&pattern10_4){
+                alert('three');}
+            else if(true === pattern10_3&&pattern10_4&&pattern10_5){
+                alert('three');}
+
+                // pattern11のthree
+            if(true === pattern11 && pattern11_2 && pattern11_3){
+                alert('three');}
+            else if(true === pattern11&&pattern11_2&&pattern11_4){
+                alert('three');}
+            else if(true === pattern11&&pattern11_2&&pattern11_5){
+                alert('three');}
+            else if(true === pattern11_2&&pattern11_3&&pattern11_4){
+                alert('three');}
+            else if(true === pattern11_2&&pattern11_5&&pattern11_4){
+                alert('three');}
+            else if(true === pattern11_3&&pattern11_4&&pattern11_5){
+                alert('three');}
+
+                // pattern12のthree
+            if(true === pattern12 && pattern12_2 && pattern12_3){
+                alert('three');}
+            else if(true === pattern12&&pattern12_2&&pattern12_4){
+                alert('three');}
+            else if(true === pattern12&&pattern12_2&&pattern12_5){
+                alert('three');}
+            else if(true === pattern12_2&&pattern12_3&&pattern12_4){
+                alert('three');}
+            else if(true === pattern12_2&&pattern12_5&&pattern12_4){
+                alert('three');}
+            else if(true === pattern12_3&&pattern12_4&&pattern12_5){
+                alert('three');}
+
+                // pattern13のthree
+            if(true === pattern13 && pattern13_2 && pattern13_3){
+                alert('three');}
+            else if(true === pattern13&&pattern13_2&&pattern13_4){
+                alert('three');}
+            else if(true === pattern13&&pattern13_2&&pattern13_5){
+                alert('three');}
+            else if(true === pattern13_2&&pattern13_3&&pattern13_4){
+                alert('three');}
+            else if(true === pattern13_2&&pattern13_5&&pattern13_4){
+                alert('three');}
+            else if(true === pattern13_3&&pattern13_4&&pattern13_5){
+                alert('three');}
+
+                // pattern14のthree
+            if(true === pattern14 && pattern14_2 && pattern14_3){
+                alert('three');}
+            else if(true === pattern14&&pattern14_2&&pattern14_4){
+                alert('three');}
+            else if(true === pattern14&&pattern14_2&&pattern14_5){
+                alert('three');}
+            else if(true === pattern14_2&&pattern14_3&&pattern14_4){
+                alert('three');}
+            else if(true === pattern14_2&&pattern14_5&&pattern14_4){
+                alert('three');}
+            else if(true === pattern14_3&&pattern14_4&&pattern14_5){
+                alert('three');}
+
+                // pattern14のthree
+            if(true === pattern14 && pattern14_2 && pattern14_3){
+                alert('three');}
+            else if(true === pattern14&&pattern14_2&&pattern14_4){
+                alert('three');}
+            else if(true === pattern14&&pattern14_2&&pattern14_5){
+                alert('three');}
+            else if(true === pattern14_2&&pattern14_3&&pattern14_4){
+                alert('three');}
+            else if(true === pattern14_2&&pattern14_5&&pattern14_4){
+                alert('three');}
+            else if(true === pattern14_3&&pattern14_4&&pattern14_5){
+                alert('three');}
+
+                // pattern15のthree
+            if(true === pattern15 && pattern15_2 && pattern15_3){
+                alert('three');}
+            else if(true === pattern15&&pattern15_2&&pattern15_4){
+                alert('three');}
+            else if(true === pattern15&&pattern15_2&&pattern15_5){
+                alert('three');}
+            else if(true === pattern15_2&&pattern15_3&&pattern15_4){
+                alert('three');}
+            else if(true === pattern15_2&&pattern15_5&&pattern15_4){
+                alert('three');}
+            else if(true === pattern15_3&&pattern15_4&&pattern15_5){
+                alert('three');}
+
+                // pattern16のthree
+            if(true === pattern16 && pattern16_2 && pattern16_3){
+                alert('three');}
+            else if(true === pattern16&&pattern16_2&&pattern16_4){
+                alert('three');}
+            else if(true === pattern16&&pattern16_2&&pattern16_5){
+                alert('three');}
+            else if(true === pattern16_2&&pattern16_3&&pattern16_4){
+                alert('three');}
+            else if(true === pattern16_2&&pattern16_5&&pattern16_4){
+                alert('three');}
+            else if(true === pattern16_3&&pattern16_4&&pattern16_5){
+                alert('three');}
+
+                // pattern17のthree
+            if(true === pattern17 && pattern17_2 && pattern17_3){
+                alert('three');}
+            else if(true === pattern17&&pattern17_2&&pattern17_4){
+                alert('three');}
+            else if(true === pattern17&&pattern17_2&&pattern17_5){
+                alert('three');}
+            else if(true === pattern17_2&&pattern17_3&&pattern17_4){
+                alert('three');}
+            else if(true === pattern17_2&&pattern17_5&&pattern17_4){
+                alert('three');}
+            else if(true === pattern17_3&&pattern17_4&&pattern17_5){
+                alert('three');}
+
+                // pattern18のthree
+            if(true === pattern18 && pattern18_2 && pattern18_3){
+                alert('three');}
+            else if(true === pattern18&&pattern18_2&&pattern18_4){
+                alert('three');}
+            else if(true === pattern18&&pattern18_2&&pattern18_5){
+                alert('three');}
+            else if(true === pattern18_2&&pattern18_3&&pattern18_4){
+                alert('three');}
+            else if(true === pattern18_2&&pattern18_5&&pattern18_4){
+                alert('three');}
+            else if(true === pattern18_3&&pattern18_4&&pattern18_5){
+                alert('three');}
+
+                // pattern19のthree
+            if(true === pattern19 && pattern19_2 && pattern19_3){
+                alert('three');}
+            else if(true === pattern19&&pattern19_2&&pattern19_4){
+                alert('three');}
+            else if(true === pattern19&&pattern19_2&&pattern19_5){
+                alert('three');}
+            else if(true === pattern19_2&&pattern19_3&&pattern19_4){
+                alert('three');}
+            else if(true === pattern19_2&&pattern19_5&&pattern19_4){
+                alert('three');}
+            else if(true === pattern19_3&&pattern19_4&&pattern19_5){
+                alert('three');}
+
+                // pattern20のthree
+            if(true === pattern20 && pattern20_2 && pattern20_3){
+                alert('three');}
+            else if(true === pattern20&&pattern20_2&&pattern20_4){
+                alert('three');}
+            else if(true === pattern20&&pattern20_2&&pattern20_5){
+                alert('three');}
+            else if(true === pattern20_2&&pattern20_3&&pattern20_4){
+                alert('three');}
+            else if(true === pattern20_2&&pattern20_5&&pattern20_4){
+                alert('three');}
+            else if(true === pattern20_3&&pattern20_4&&pattern20_5){
+                alert('three');}
+
+                // pattern21のthree
+            if(true === pattern21 && pattern21_2 && pattern21_3){
+                alert('three');}
+            else if(true === pattern21&&pattern21_2&&pattern21_4){
+                alert('three');}
+            else if(true === pattern21&&pattern21_2&&pattern21_5){
+                alert('three');}
+            else if(true === pattern21_2&&pattern21_3&&pattern21_4){
+                alert('three');}
+            else if(true === pattern21_2&&pattern21_5&&pattern21_4){
+                alert('three');}
+            else if(true === pattern21_3&&pattern21_4&&pattern21_5){
+                alert('three');}
+
+                // pattern22のthree
+            if(true === pattern22 && pattern22_2 && pattern22_3){
+                alert('three');}
+            else if(true === pattern22&&pattern22_2&&pattern22_4){
+                alert('three');}
+            else if(true === pattern22&&pattern22_2&&pattern22_5){
+                alert('three');}
+            else if(true === pattern22_2&&pattern22_3&&pattern22_4){
+                alert('three');}
+            else if(true === pattern22_2&&pattern22_5&&pattern22_4){
+                alert('three');}
+            else if(true === pattern22_3&&pattern22_4&&pattern22_5){
+                alert('three');}
+
+                // pattern23のthree
+            if(true === pattern23 && pattern23_2 && pattern23_3){
+                alert('three');}
+            else if(true === pattern23&&pattern23_2&&pattern23_4){
+                alert('three');}
+            else if(true === pattern23&&pattern23_2&&pattern23_5){
+                alert('three');}
+            else if(true === pattern23_2&&pattern23_3&&pattern23_4){
+                alert('three');}
+            else if(true === pattern23_2&&pattern23_5&&pattern23_4){
+                alert('three');}
+            else if(true === pattern23_3&&pattern23_4&&pattern23_5){
+                alert('three');}
+
+                // pattern24のthree
+            if(true === pattern24 && pattern24_2 && pattern24_3){
+                alert('three');}
+            else if(true === pattern24&&pattern24_2&&pattern24_4){
+                alert('three');}
+            else if(true === pattern24&&pattern24_2&&pattern24_5){
+                alert('three');}
+            else if(true === pattern24_2&&pattern24_3&&pattern24_4){
+                alert('three');}
+            else if(true === pattern24_2&&pattern24_5&&pattern24_4){
+                alert('three');}
+            else if(true === pattern24_3&&pattern24_4&&pattern24_5){
+                alert('three');}
+
+                // pattern25のthree
+            if(true === pattern25 && pattern25_2 && pattern25_3){
+                alert('three');}
+            else if(true === pattern25&&pattern25_2&&pattern25_4){
+                alert('three');}
+            else if(true === pattern25&&pattern25_2&&pattern25_5){
+                alert('three');}
+            else if(true === pattern25_2&&pattern25_3&&pattern25_4){
+                alert('three');}
+            else if(true === pattern25_2&&pattern25_5&&pattern25_4){
+                alert('three');}
+            else if(true === pattern25_3&&pattern25_4&&pattern25_5){
+                alert('three');}
+
+                // pattern26のthree
+            if(true === pattern26 && pattern26_2 && pattern26_3){
+                alert('three');}
+            else if(true === pattern26&&pattern26_2&&pattern26_4){
+                alert('three');}
+            else if(true === pattern26&&pattern26_2&&pattern26_5){
+                alert('three');}
+            else if(true === pattern26_2&&pattern26_3&&pattern26_4){
+                alert('three');}
+            else if(true === pattern26_2&&pattern26_5&&pattern26_4){
+                alert('three');}
+            else if(true === pattern26_3&&pattern26_4&&pattern26_5){
+                alert('three');}
+
+                // pattern27のthree
+            if(true === pattern27 && pattern27_2 && pattern27_3){
+                alert('three');}
+            else if(true === pattern27&&pattern27_2&&pattern27_4){
+                alert('three');}
+            else if(true === pattern27&&pattern27_2&&pattern27_5){
+                alert('three');}
+            else if(true === pattern27_2&&pattern27_3&&pattern27_4){
+                alert('three');}
+            else if(true === pattern27_2&&pattern27_5&&pattern27_4){
+                alert('three');}
+            else if(true === pattern27_3&&pattern27_4&&pattern27_5){
+                alert('three');}
+
+                // pattern28のthree
+            if(true === pattern28 && pattern28_2 && pattern28_3){
+                alert('three');}
+            else if(true === pattern28&&pattern28_2&&pattern28_4){
+                alert('three');}
+            else if(true === pattern28&&pattern28_2&&pattern28_5){
+                alert('three');}
+            else if(true === pattern28_2&&pattern28_3&&pattern28_4){
+                alert('three');}
+            else if(true === pattern28_2&&pattern28_5&&pattern28_4){
+                alert('three');}
+            else if(true === pattern28_3&&pattern28_4&&pattern28_5){
+                alert('three');}
+
+                // pattern29のthree
+            if(true === pattern29 && pattern29_2 && pattern29_3){
+                alert('three');}
+            else if(true === pattern29&&pattern29_2&&pattern29_4){
+                alert('three');}
+            else if(true === pattern29&&pattern29_2&&pattern29_5){
+                alert('three');}
+            else if(true === pattern29_2&&pattern29_3&&pattern29_4){
+                alert('three');}
+            else if(true === pattern29_2&&pattern29_5&&pattern29_4){
+                alert('three');}
+            else if(true === pattern29_3&&pattern29_4&&pattern29_5){
+                alert('three');}
+
+                // pattern30のthree
+            if(true === pattern30 && pattern30_2 && pattern30_3){
+                alert('three');}
+            else if(true === pattern30&&pattern30_2&&pattern30_4){
+                alert('three');}
+            else if(true === pattern30&&pattern30_2&&pattern30_5){
+                alert('three');}
+            else if(true === pattern30_2&&pattern30_3&&pattern30_4){
+                alert('three');}
+            else if(true === pattern30_2&&pattern30_5&&pattern30_4){
+                alert('three');}
+            else if(true === pattern30_3&&pattern30_4&&pattern30_5){
+                alert('three');}
+
+                // pattern31のthree
+            if(true === pattern31 && pattern31_2 && pattern31_3){
+                alert('three');}
+            else if(true === pattern31&&pattern31_2&&pattern31_4){
+                alert('three');}
+            else if(true === pattern31&&pattern31_2&&pattern31_5){
+                alert('three');}
+            else if(true === pattern31_2&&pattern31_3&&pattern31_4){
+                alert('three');}
+            else if(true === pattern31_2&&pattern31_5&&pattern31_4){
+                alert('three');}
+            else if(true === pattern31_3&&pattern31_4&&pattern31_5){
+                alert('three');}
+
+                // pattern32のthree
+            if(true === pattern32 && pattern32_2 && pattern32_3){
+                alert('three');}
+            else if(true === pattern32&&pattern32_2&&pattern32_4){
+                alert('three');}
+            else if(true === pattern32&&pattern32_2&&pattern32_5){
+                alert('three');}
+            else if(true === pattern32_2&&pattern32_3&&pattern32_4){
+                alert('three');}
+            else if(true === pattern32_2&&pattern32_5&&pattern32_4){
+                alert('three');}
+            else if(true === pattern32_3&&pattern32_4&&pattern32_5){
+                alert('three');}
+
+                // pattern33のthree
+            if(true === pattern33 && pattern33_2 && pattern33_3){
+                alert('three');}
+            else if(true === pattern33&&pattern33_2&&pattern33_4){
+                alert('three');}
+            else if(true === pattern33&&pattern33_2&&pattern33_5){
+                alert('three');}
+            else if(true === pattern33_2&&pattern33_3&&pattern33_4){
+                alert('three');}
+            else if(true === pattern33_2&&pattern33_5&&pattern33_4){
+                alert('three');}
+            else if(true === pattern33_3&&pattern33_4&&pattern33_5){
+                alert('three');}
+
+                // pattern34のthree
+            if(true === pattern34 && pattern34_2 && pattern34_3){
+                alert('three');}
+            else if(true === pattern34&&pattern34_2&&pattern34_4){
+                alert('three');}
+            else if(true === pattern34&&pattern34_2&&pattern34_5){
+                alert('three');}
+            else if(true === pattern34_2&&pattern34_3&&pattern34_4){
+                alert('three');}
+            else if(true === pattern34_2&&pattern34_5&&pattern34_4){
+                alert('three');}
+            else if(true === pattern34_3&&pattern34_4&&pattern34_5){
+                alert('three');}
+
+                // pattern35のthree
+            if(true === pattern35 && pattern35_2 && pattern35_3){
+                alert('three');}
+            else if(true === pattern35&&pattern35_2&&pattern35_4){
+                alert('three');}
+            else if(true === pattern35&&pattern35_2&&pattern35_5){
+                alert('three');}
+            else if(true === pattern35_2&&pattern35_3&&pattern35_4){
+                alert('three');}
+            else if(true === pattern35_2&&pattern35_5&&pattern35_4){
+                alert('three');}
+            else if(true === pattern35_3&&pattern35_4&&pattern35_5){
+                alert('three');}
+
+                // pattern36のthree
+            if(true === pattern36 && pattern36_2 && pattern36_3){
+                alert('three');}
+            else if(true === pattern36&&pattern36_2&&pattern36_4){
+                alert('three');}
+            else if(true === pattern36&&pattern36_2&&pattern36_5){
+                alert('three');}
+            else if(true === pattern36_2&&pattern36_3&&pattern36_4){
+                alert('three');}
+            else if(true === pattern36_2&&pattern36_5&&pattern36_4){
+                alert('three');}
+            else if(true === pattern36_3&&pattern36_4&&pattern36_5){
+                alert('three');}
+
+                // pattern37のthree
+            if(true === pattern37 && pattern37_2 && pattern37_3){
+                alert('three');}
+            else if(true === pattern37&&pattern37_2&&pattern37_4){
+                alert('three');}
+            else if(true === pattern37&&pattern37_2&&pattern37_5){
+                alert('three');}
+            else if(true === pattern37_2&&pattern37_3&&pattern37_4){
+                alert('three');}
+            else if(true === pattern37_2&&pattern37_5&&pattern37_4){
+                alert('three');}
+            else if(true === pattern37_3&&pattern37_4&&pattern37_5){
+                alert('three');}
+
+                // pattern38のthree
+            if(true === pattern38 && pattern38_2 && pattern38_3){
+                alert('three');}
+            else if(true === pattern38&&pattern38_2&&pattern38_4){
+                alert('three');}
+            else if(true === pattern38&&pattern38_2&&pattern38_5){
+                alert('three');}
+            else if(true === pattern38_2&&pattern38_3&&pattern38_4){
+                alert('three');}
+            else if(true === pattern38_2&&pattern38_5&&pattern38_4){
+                alert('three');}
+            else if(true === pattern38_3&&pattern38_4&&pattern38_5){
+                alert('three');}
+
+                // pattern39のthree
+            if(true === pattern39 && pattern39_2 && pattern39_3){
+                alert('three');}
+            else if(true === pattern39&&pattern39_2&&pattern39_4){
+                alert('three');}
+            else if(true === pattern39&&pattern39_2&&pattern39_5){
+                alert('three');}
+            else if(true === pattern39_2&&pattern39_3&&pattern39_4){
+                alert('three');}
+            else if(true === pattern39_2&&pattern39_5&&pattern39_4){
+                alert('three');}
+            else if(true === pattern39_3&&pattern39_4&&pattern39_5){
+                alert('three');}
+
+                // pattern40のthree
+            if(true === pattern40 && pattern40_2 && pattern40_3){
+                alert('three');}
+            else if(true === pattern40&&pattern40_2&&pattern40_4){
+                alert('three');}
+            else if(true === pattern40&&pattern40_2&&pattern40_5){
+                alert('three');}
+            else if(true === pattern40_2&&pattern40_3&&pattern40_4){
+                alert('three');}
+            else if(true === pattern40_2&&pattern40_5&&pattern40_4){
+                alert('three');}
+            else if(true === pattern40_3&&pattern40_4&&pattern40_5){
+                alert('three');}
+
+                // pattern41のthree
+            if(true === pattern41 && pattern41_2 && pattern41_3){
+                alert('three');}
+            else if(true === pattern41&&pattern41_2&&pattern41_4){
+                alert('three');}
+            else if(true === pattern41&&pattern41_2&&pattern41_5){
+                alert('three');}
+            else if(true === pattern41_2&&pattern41_3&&pattern41_4){
+                alert('three');}
+            else if(true === pattern41_2&&pattern41_5&&pattern41_4){
+                alert('three');}
+            else if(true === pattern41_3&&pattern41_4&&pattern41_5){
+                alert('three');}
+
+                // pattern42のthree
+            if(true === pattern42 && pattern42_2 && pattern42_3){
+                alert('three');}
+            else if(true === pattern42&&pattern42_2&&pattern42_4){
+                alert('three');}
+            else if(true === pattern42&&pattern42_2&&pattern42_5){
+                alert('three');}
+            else if(true === pattern42_2&&pattern42_3&&pattern42_4){
+                alert('three');}
+            else if(true === pattern42_2&&pattern42_5&&pattern42_4){
+                alert('three');}
+            else if(true === pattern42_3&&pattern42_4&&pattern42_5){
+                alert('three');}
+
+                // pattern43のthree
+            if(true === pattern43 && pattern43_2 && pattern43_3){
+                alert('three');}
+            else if(true === pattern43&&pattern43_2&&pattern43_4){
+                alert('three');}
+            else if(true === pattern43&&pattern43_2&&pattern43_5){
+                alert('three');}
+            else if(true === pattern43_2&&pattern43_3&&pattern43_4){
+                alert('three');}
+            else if(true === pattern43_2&&pattern43_5&&pattern43_4){
+                alert('three');}
+            else if(true === pattern43_3&&pattern43_4&&pattern43_5){
+                alert('three');}
+
+                // pattern44のthree
+            if(true === pattern44 && pattern44_2 && pattern44_3){
+                alert('three');}
+            else if(true === pattern44&&pattern44_2&&pattern44_4){
+                alert('three');}
+            else if(true === pattern44&&pattern44_2&&pattern44_5){
+                alert('three');}
+            else if(true === pattern44_2&&pattern44_3&&pattern44_4){
+                alert('three');}
+            else if(true === pattern44_2&&pattern44_5&&pattern44_4){
+                alert('three');}
+            else if(true === pattern44_3&&pattern44_4&&pattern44_5){
+                alert('three');}
+
+                // pattern45のthree
+            if(true === pattern45 && pattern45_2 && pattern45_3){
+                alert('three');}
+            else if(true === pattern45&&pattern45_2&&pattern45_4){
+                alert('three');}
+            else if(true === pattern45&&pattern45_2&&pattern45_5){
+                alert('three');}
+            else if(true === pattern45_2&&pattern45_3&&pattern45_4){
+                alert('three');}
+            else if(true === pattern45_2&&pattern45_5&&pattern45_4){
+                alert('three');}
+            else if(true === pattern45_3&&pattern45_4&&pattern45_5){
+                alert('three');}
+
+                // pattern46のthree
+            if(true === pattern46 && pattern46_2 && pattern46_3){
+                alert('three');}
+            else if(true === pattern46&&pattern46_2&&pattern46_4){
+                alert('three');}
+            else if(true === pattern46&&pattern46_2&&pattern46_5){
+                alert('three');}
+            else if(true === pattern46_2&&pattern46_3&&pattern46_4){
+                alert('three');}
+            else if(true === pattern46_2&&pattern46_5&&pattern46_4){
+                alert('three');}
+            else if(true === pattern46_3&&pattern46_4&&pattern46_5){
+                alert('three');}
+
+                // pattern47のthree
+            if(true === pattern47 && pattern47_2 && pattern47_3){
+                alert('three');}
+            else if(true === pattern47&&pattern47_2&&pattern47_4){
+                alert('three');}
+            else if(true === pattern47&&pattern47_2&&pattern47_5){
+                alert('three');}
+            else if(true === pattern47_2&&pattern47_3&&pattern47_4){
+                alert('three');}
+            else if(true === pattern47_2&&pattern47_5&&pattern47_4){
+                alert('three');}
+            else if(true === pattern47_3&&pattern47_4&&pattern47_5){
+                alert('three');}
+
+                // pattern48のthree
+            if(true === pattern48 && pattern48_2 && pattern48_3){
+                alert('three');}
+            else if(true === pattern48&&pattern48_2&&pattern48_4){
+                alert('three');}
+            else if(true === pattern48&&pattern48_2&&pattern48_5){
+                alert('three');}
+            else if(true === pattern48_2&&pattern48_3&&pattern48_4){
+                alert('three');}
+            else if(true === pattern48_2&&pattern48_5&&pattern48_4){
+                alert('three');}
+            else if(true === pattern48_3&&pattern48_4&&pattern48_5){
+                alert('three');}
+
+                // pattern49のthree
+            if(true === pattern49 && pattern49_2 && pattern49_3){
+                alert('three');}
+            else if(true === pattern49&&pattern49_2&&pattern49_4){
+                alert('three');}
+            else if(true === pattern49&&pattern49_2&&pattern49_5){
+                alert('three');}
+            else if(true === pattern49_2&&pattern49_3&&pattern49_4){
+                alert('three');}
+            else if(true === pattern49_2&&pattern49_5&&pattern49_4){
+                alert('three');}
+            else if(true === pattern49_3&&pattern49_4&&pattern49_5){
+                alert('three');}
+
+                // pattern50のthree
+            if(true === pattern50 && pattern50_2 && pattern50_3){
+                alert('three');}
+            else if(true === pattern50&&pattern50_2&&pattern50_4){
+                alert('three');}
+            else if(true === pattern50&&pattern50_2&&pattern50_5){
+                alert('three');}
+            else if(true === pattern50_2&&pattern50_3&&pattern50_4){
+                alert('three');}
+            else if(true === pattern50_2&&pattern50_5&&pattern50_4){
+                alert('three');}
+            else if(true === pattern50_3&&pattern50_4&&pattern50_5){
+                alert('three');}
+
+                // pattern51のthree
+            if(true === pattern51 && pattern51_2 && pattern51_3){
+                alert('three');}
+            else if(true === pattern51&&pattern51_2&&pattern51_4){
+                alert('three');}
+            else if(true === pattern51&&pattern51_2&&pattern51_5){
+                alert('three');}
+            else if(true === pattern51_2&&pattern51_3&&pattern51_4){
+                alert('three');}
+            else if(true === pattern51_2&&pattern51_5&&pattern51_4){
+                alert('three');}
+            else if(true === pattern51_3&&pattern51_4&&pattern51_5){
+                alert('three');}
+
+                // pattern52のthree
+            if(true === pattern52 && pattern52_2 && pattern52_3){
+                alert('three');}
+            else if(true === pattern52&&pattern52_2&&pattern52_4){
+                alert('three');}
+            else if(true === pattern52&&pattern52_2&&pattern52_5){
+                alert('three');}
+            else if(true === pattern52_2&&pattern52_3&&pattern52_4){
+                alert('three');}
+            else if(true === pattern52_2&&pattern52_5&&pattern52_4){
+                alert('three');}
+            else if(true === pattern52_3&&pattern52_4&&pattern52_5){
+                alert('three');}
+
+    </script>
+</body>
+</html>
